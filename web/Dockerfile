@@ -22,6 +22,6 @@ RUN npm run build
 FROM nginx:alpine as production
 ENV APP_PORT=80
 WORKDIR /usr/share/nginx/html
-COPY --from=build ./dist /usr/share/nginx/html
+COPY --from=build /var/www/html/dist /usr/share/nginx/html
 EXPOSE $APP_PORT
 CMD ["nginx", "-g", "daemon off;"]
