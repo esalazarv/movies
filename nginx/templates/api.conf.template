@@ -1,7 +1,7 @@
 server {
-    listen       ${NGINX_API_PORT} default_server;
-    listen       [::]:${NGINX_API_PORT} default_server ipv6only=on;
-    server_name ${NGINX_API_HOST};
+    listen       80 default_server;
+    listen       [::]:80 default_server ipv6only=on;
+    server_name localhost;
 
     root         /var/www/html/public;
 
