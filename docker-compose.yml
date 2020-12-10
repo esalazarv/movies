@@ -1,0 +1,50 @@
+version: "3.7"
+networks:
+  internal:
+    driver: bridge
+    name: movies-internal
+
+volumes:
+  database:
+    driver: local
+    name: movies-database
+
+services:
+  nginx:
+    image: nginx
+    networks:
+      - internal
+    ports:
+      - "${DOCKER_API_HOST:-8080}:80"
+    volumes:
+      - ./nginx/templates:/etc/nginx/templates
+      - ./api:/var/www/html
+    environment:
+      NGINX_API_HOST: ${DOCKER_NGINX_API_HOST:-movies-api.test}
+      NGINX_API_PORT: 80
+    depends_on:
+      - php
+    restart: always
+
+  php:
+    build:
+      context: api
+    networks:
+      - internal
+    volumes:
+      - ./api:/var/www/html
+      - ./api/custom.ini:/usr/local/etc/php/conf.d/custom.ini
+    depends_on:
+      - database
+
+  database:
+    image: postgres
+    restart: always
+    networks:
+      - internal
+    volumes:
+      - database:/var/lib/postgresql
+    environment:
+      POSTGRES_USER:  ${DB_USERNAME:-admin}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-secret}
+      POSTGRES_DB: ${DB_DATABASE:-forge}
