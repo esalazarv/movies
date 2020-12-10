@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use \App\Http\Controllers\ApiController;
+use \App\Http\Controllers\MovieController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +20,6 @@ Route::get('/', [ApiController::class, 'redirect']);
 Route::group(['prefix' =>'v1'], function () {
     Route::get('/', [ApiController::class, 'index'])->name('api:info');
 
-    Route::middleware('auth:api')->get('/user', function (Request $request) {
-        return $request->user();
-    });
+    // Movie CRUD routes
+    Route::apiResource('movies', MovieController::class);
 });

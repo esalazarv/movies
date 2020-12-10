@@ -2,10 +2,11 @@ FROM php:7.4-fpm
 
 WORKDIR /var/www/html
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install --no-install-recommends -y \
         libwebp-dev \
         libjpeg-dev \
         libpng-dev \
+        libpq-dev  \
         libzip-dev \
         unzip \
         zip \
@@ -20,7 +21,8 @@ RUN docker-php-ext-install \
     gd \
     json \
     pcntl \
-    pdo_mysql \
+    pgsql \
+    pdo_pgsql \
     sockets \
     zip
 
