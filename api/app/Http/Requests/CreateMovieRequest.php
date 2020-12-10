@@ -25,6 +25,7 @@ class CreateMovieRequest extends FormRequest
     {
         return [
             'name' => ['required'],
+            'active' => ['sometimes', 'boolean'],
             'publish_date' => ['required', 'date']
         ];
     }

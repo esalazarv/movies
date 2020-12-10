@@ -18,6 +18,7 @@ class Movie extends Model implements FilterableContract
      */
     protected $fillable = [
         'name',
+        'active',
         'publish_date',
     ];
 
@@ -28,5 +29,23 @@ class Movie extends Model implements FilterableContract
      */
     protected $dates = [
         'publish_date'
+    ];
+
+    /**
+     * The type of specific attributes
+     *
+     * @var mixed[]
+     */
+    protected $casts = [
+        'active' => 'boolean',
+    ];
+
+    /**
+     * Default attribute values
+     *
+     * @var mixed[]
+     */
+    protected $attributes = [
+        'active' => true,
     ];
 }

@@ -24,8 +24,9 @@ class UpdateMovieRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required'],
-            'publish_date' => ['sometimes', 'date']
+            'name' => ['sometimes'],
+            'active' => ['sometimes', 'boolean'],
+            'publish_date' => ['sometimes', 'date'],
         ];
     }
 }
