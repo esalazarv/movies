@@ -126,6 +126,6 @@ abstract class QueryFilters implements QueryableContract
     }
 
     public function pageSize() {
-        return (int) $this->filters->get('per_page', self::PAGE_SIZE);
+        return (int) $this->filters->get('page_size', self::PAGE_SIZE);
     }
 }

@@ -2,63 +2,105 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\models\Movie;
-use Illuminate\Http\Request;
+use App\Http\Filters\MovieFilters;
+use App\Http\Requests\CreateMovieRequest;
+use App\Http\Requests\UpdateMovieRequest;
+use App\Http\Resources\MovieResource;
+use App\Repositories\MovieRepository;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class MovieController extends Controller
 {
+
+    /**
+     * @var MovieRepository
+     */
+    protected $movieRepository;
+
+    public function __construct(MovieRepository $movieRepository)
+    {
+        $this->movieRepository = $movieRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param MovieFilters $filters
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index()
+    public function index(MovieFilters $filters)
     {
-        //
+        return MovieResource::collection($this->movieRepository->search($filters));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param CreateMovieRequest $request
+     * @return MovieResource|\Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(CreateMovieRequest $request)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $movie = $this->movieRepository->create($request->all());
+            DB::commit();
+            return new MovieResource($movie);
+        } catch (\Throwable $exception) {
+            DB::rollBack();
+            return response()->json(['message' => $exception->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\models\Movie  $movie
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return MovieResource
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
-    public function show(Movie $movie)
+    public function show(int $id)
     {
-        //
+        $movie = $this->movieRepository->findOrFail($id);
+        return new MovieResource($movie);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\models\Movie  $movie
-     * @return \Illuminate\Http\Response
+     * @param UpdateMovieRequest $request
+     * @param int $id
+     * @return MovieResource|\Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Movie $movie)
+    public function update(UpdateMovieRequest $request, int $id)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $movie = $this->movieRepository->update($id, $request->all());
+            DB::commit();
+            return new MovieResource($movie);
+        } catch (\Throwable $exception) {
+            DB::rollBack();
+            return response()->json(['message' => $exception->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\models\Movie  $movie
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse|Response
      */
-    public function destroy(Movie $movie)
+    public function destroy($id)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $this->movieRepository->delete($id);
+            DB::commit();
+            return response()->noContent();
+        } catch (\Throwable $exception) {
+            return response()->json(['message' => $exception->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
     }
 }
