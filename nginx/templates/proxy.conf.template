@@ -1,5 +1,5 @@
 server {
-  listen 80;
+  listen ${NGINX_PROXY_PORT};
 
   gzip on;
   gzip_vary on;
@@ -14,15 +14,15 @@ server {
 
   location / {
     proxy_pass ${NGINX_APP_HOST};
-    proxy_set_header Host $host;
+    proxy_set_header Host $host:$server_port;
     proxy_set_header X-Forwarded-For $remote_addr;
     gzip_static on;
   }
 
   location /api {
-  rewrite /api?(.*)$ /$1 break;
+  rewrite /api?(.*)$ /api$1 break;
     proxy_pass ${NGINX_API_HOST};
-    proxy_set_header Host $host;
+    proxy_set_header Host $host:$server_port;
     proxy_set_header X-Forwarded-For $remote_addr;
     gzip_static on;
   }
