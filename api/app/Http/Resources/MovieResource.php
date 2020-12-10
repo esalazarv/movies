@@ -18,6 +18,7 @@ class MovieResource extends JsonResource
             "id" => $this->id,
             "name" => $this->name,
             "active" => $this->active,
+            "duration" => $this->duration,
             "publish_date" => $this->publish_date,
             "created_at" => $this->created_at,
             "updated_at"=> $this->updated_at,

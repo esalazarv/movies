@@ -17,6 +17,7 @@ class CreateMoviesTable extends Migration
             $table->id();
             $table->string('name');
             $table->boolean('active')->default(true);
+            $table->time('duration')->default('00:00:00');
             $table->date('publish_date');
             $table->timestamps();
         });

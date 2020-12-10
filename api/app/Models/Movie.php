@@ -19,6 +19,7 @@ class Movie extends Model implements FilterableContract
     protected $fillable = [
         'name',
         'active',
+        'duration',
         'publish_date',
     ];
 

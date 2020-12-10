@@ -26,6 +26,7 @@ class UpdateMovieRequest extends FormRequest
         return [
             'name' => ['sometimes'],
             'active' => ['sometimes', 'boolean'],
+            'duration' => ['sometimes', 'date_format:H:i:s'],
             'publish_date' => ['sometimes', 'date'],
         ];
     }
