@@ -39,6 +39,9 @@ export default {
     setDeleting(state, payload) {
       state.isDeleting = payload;
     },
+    setParams(state, payload) {
+      state.params = { ...state.params, ...payload};
+    },
     setMovies(state, payload) {
       state.movies = [...payload];
     },

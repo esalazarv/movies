@@ -13,7 +13,10 @@
               :disabled="isLoading"
               single-line
               hide-details
+              @keyup="setParams(params)"
+              @click:clear="clear"
               v-debounce="search"
+              clearable
             ></v-text-field>
           </div>
           <v-spacer></v-spacer>
@@ -60,6 +63,12 @@
             </v-btn>
           </template>
         </v-data-table>
+
+        <v-pagination
+            v-model="pagination.current_page"
+            :length="pagination.last_page"
+            @input="search"
+        ></v-pagination>
       </v-card>
     </div>
 
@@ -105,7 +114,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapState } from "vuex";
+import { mapActions, mapGetters, mapState, mapMutations } from "vuex";
 
 export default {
   name: "Movies",
@@ -158,11 +167,21 @@ export default {
   },
   methods: {
     // Map actions from auth module (Vuex)
+    ...mapMutations("movies", ['setParams']),
+    // Map actions from auth module (Vuex)
     ...mapActions("movies", ["fetch", "destroy", "toggleStatus"]),
 
     search() {
       console.log("[Movies] searching");
       this.fetch(this.filters);
+    },
+
+    clear() {
+      this.updateQuery(this.params).finally(() => this.search());
+    },
+
+    async updateQuery(params) {
+      await this.setParams(params);
     },
 
     remove() {
