@@ -93,6 +93,19 @@ export default {
         .finally(() => commit("setLoading", false));
     },
 
+    find({ commit }, id) {
+      const movieService = new MovieService();
+      commit("setLoading", true);
+      console.log("[Movies redux] find");
+      return movieService
+          .find(id)
+          .then(response => {
+            commit("selectMovie", response.data);
+            console.log("[Movies redux] movie found");
+          })
+          .finally(() => commit("setLoading", false));
+    },
+
     create({ commit }, data) {
       const movieService = new MovieService();
       commit("setLoading", true);
@@ -109,6 +122,26 @@ export default {
     },
 
     /**
+     * Update a movie
+     * @param commit
+     * @param id
+     * @param data
+     * @returns {*}
+     */
+    update({ commit }, id, data) {
+      const movieService = new MovieService();
+      console.log("[Movies redux] updating");
+      commit("setLoading", true);
+      return movieService
+          .update(id, data)
+          .then(response => {
+            commit("replaceMovie", response.data);
+            console.log("[Movies redux] movies updated");
+          })
+          .finally(() => commit("setLoading", false));
+    },
+
+    /**
      * Toggle movie status
      * @param commit
      * @param movie
@@ -116,12 +149,12 @@ export default {
      */
     toggleStatus({ commit }, movie) {
       const movieService = new MovieService();
-      console.log("[Movies redux] fetching");
+      console.log("[Movies redux] changing status");
       return movieService
         .update(movie.id, { active: movie.active })
         .then(response => {
           commit("replaceMovie", response.data);
-          console.log("[Movies redux] movies fetched");
+          console.log("[Movies redux] movies status changed");
         });
     },
 

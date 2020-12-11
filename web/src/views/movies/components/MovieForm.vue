@@ -82,19 +82,12 @@
     <!--Success process  -->
     <v-dialog v-model="successDialogOpen" max-width="300">
       <v-card>
-        <v-card-title class="headline">{{ $t('movies.labels.dialogs.successCreate.title') }}</v-card-title>
-        <v-card-text>
-          <i18n path="movies.labels.dialogs.successCreate.message" tag="p">
-            <template #name>
-              <strong>{{ movie ? movie.name : "" }}</strong>
-            </template>
-          </i18n>
-        </v-card-text>
-
+        <v-card-title class="headline">{{ successMessages.title }}</v-card-title>
+        <v-card-text>{{ successMessages.message }}</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn text color="green darken-1" @click="accept">
-            {{ $t('movies.labels.dialogs.successCreate.accept') }}
+            {{ successMessages.accept }}
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -103,12 +96,12 @@
     <!-- Error submit form  -->
     <v-dialog v-model="errorDialogOpen" max-width="300">
       <v-card>
-        <v-card-title class="headline">{{ $t('movies.labels.dialogs.errorCreate.title') }}</v-card-title>
-        <v-card-text>{{ $t('movies.labels.dialogs.errorCreate.message') }}</v-card-text>
+        <v-card-title class="headline">{{ errorMessages.title }}</v-card-title>
+        <v-card-text>{{ errorMessages.message }}</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn text @click="errorDialogOpen = false">
-            {{ $t('movies.labels.dialogs.errorCreate.accept') }}
+            {{ errorMessages.accept }}
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -121,6 +114,16 @@ import {mapActions, mapState} from "vuex";
 
 export default {
   name: "MovieForm",
+  props: {
+    successMessagesPath: {
+      type: String,
+      default: 'movies.labels.dialogs.successCreate',
+    },
+    errorMessagesPath: {
+      type: String,
+      default: 'movies.labels.dialogs.errorCreate',
+    }
+  },
   data() {
     return {
       successDialogOpen: false,
@@ -133,6 +136,12 @@ export default {
       isLoading: state => state.isLoading,
       movie: state => state.movie,
     }),
+    successMessages() {
+      return this.$t(this.successMessagesPath);
+    },
+    errorMessages() {
+      return this.$t(this.errorMessagesPath);
+    },
     publishDate: {
       get() {
         return this.movie.publish_date ? this.$moment(this.movie.publish_date, 'YYYY-MM-DD').format( 'YYYY-MM-DD') : '';
@@ -145,16 +154,23 @@ export default {
 
   methods: {
     // Map actions from movies module (Vuex)
-    ...mapActions("movies", ["create"]),
+    ...mapActions("movies", ["create", "update"]),
 
     async submit() {
       if (await this.$refs.form.validate()) {
-        this.create({ ...this.movie, publish_date: this.publishDate })
-            .then(() => this.successDialogOpen = true)
-            .catch(() => this.errorDialogOpen = true);
+        if (this.movie.id) {
+          this.update(this.movie.id, {...this.movie})
+              .then(() => this.successDialogOpen = true)
+              .catch(() => this.errorDialogOpen = true);
+        } else {
+          this.create({ ...this.movie, publish_date: this.publishDate })
+              .then(() => this.successDialogOpen = true)
+              .catch(() => this.errorDialogOpen = true);
+        }
       }
     },
     accept() {
+      this.successDialogOpen = false;
       this.$emit('success', this.movie);
     }
   }

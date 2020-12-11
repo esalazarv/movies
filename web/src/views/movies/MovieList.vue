@@ -55,7 +55,7 @@
             <v-btn icon :to="{ name: 'movies:edit', params: { id: item.id } }">
               <v-icon>fa fa-edit</v-icon>
             </v-btn>
-            <v-btn icon :to="{ name: 'movies:edit', params: { id: item.id } }">
+            <v-btn icon :to="{ name: 'movies:schedules', params: { id: item.id } }">
               <v-icon>fa fa-calendar-alt</v-icon>
             </v-btn>
             <v-btn icon @click="confirmDelete(item)">

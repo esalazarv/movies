@@ -39,13 +39,25 @@ export default {
       },
       successCreate: {
         title: "Register complete",
-        message: "Movie {name} has been created successfully",
+        message: "Movie has been created successfully",
         dismiss: "cancel",
         accept: "accept"
       },
       errorCreate: {
         title: "Error",
-        message: "Movie {name} has not been created",
+        message: "Movie has not been created",
+        dismiss: "cancel",
+        accept: "accept"
+      },
+      successUpdate: {
+        title: "Record updated",
+        message: "Movie data has been updated successfully",
+        dismiss: "cancel",
+        accept: "accept"
+      },
+      errorUpdate: {
+        title: "Error",
+        message: "Movie data has not been updated",
         dismiss: "cancel",
         accept: "accept"
       }

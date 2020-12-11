@@ -39,13 +39,25 @@ export default {
       },
       successCreate: {
         title: "Registro completo",
-        message: "La película {name} ha registrado exitosamente",
+        message: "La película ha registrado exitosamente",
         dismiss: "cancelar",
         accept: "aceptar"
       },
       errorCreate: {
         title: "Error",
-        message: "La película {name} no se puedo registrar correctamente",
+        message: "La película no se puedo registrar correctamente",
+        dismiss: "cancelar",
+        accept: "aceptar"
+      },
+      successUpdate: {
+        title: "Registro actualizado",
+        message: "Los datos de la película se han actualizado exitosamente",
+        dismiss: "cancelar",
+        accept: "aceptar"
+      },
+      errorUpdate: {
+        title: "Error",
+        message: "No se puedo actualizar correctamente los datos de la película",
         dismiss: "cancelar",
         accept: "aceptar"
       }
