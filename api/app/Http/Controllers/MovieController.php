@@ -100,6 +100,7 @@ class MovieController extends Controller
             DB::commit();
             return response()->noContent();
         } catch (\Throwable $exception) {
+            DB::rollBack();
             return response()->json(['message' => $exception->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }

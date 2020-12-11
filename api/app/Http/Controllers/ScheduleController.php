@@ -6,10 +6,8 @@ use App\Http\Filters\ScheduleFilters;
 use App\Http\Requests\CreateScheduleRequest;
 use App\Http\Requests\UpdateScheduleRequest;
 use App\Http\Resources\ScheduleResource;
-use App\Models\Schedule;
 use App\Repositories\MovieRepository;
 use App\Repositories\ScheduleRepository;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
@@ -109,6 +107,7 @@ class ScheduleController extends Controller
             DB::commit();
             return response()->noContent();
         } catch (\Throwable $exception) {
+            DB::rollBack();
             return response()->json(['message' => $exception->getMessage()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }
