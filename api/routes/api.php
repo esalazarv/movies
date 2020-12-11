@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use \App\Http\Controllers\ApiController;
 use \App\Http\Controllers\MovieController;
+use \App\Http\Controllers\ScheduleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,4 +23,7 @@ Route::group(['prefix' =>'v1'], function () {
 
     // Movie CRUD routes
     Route::apiResource('movies', MovieController::class);
+
+    // Schedule CRUD routes
+    Route::apiResource('schedules', ScheduleController::class);
 });
