@@ -1,56 +1,45 @@
 <template>
-  <v-app>
-    <v-app-bar app color="primary" dark>
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
-
-    <v-main>
-      <HelloWorld />
-    </v-main>
+  <v-app id="app">
+    <component :is="layout"></component>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld";
+import { mapGetters, mapState } from "vuex";
 
 export default {
   name: "App",
+  computed: {
+    // Map state from application module (Vuex)
+    ...mapState("application", {
+      layout: state => state.layout
+    }),
 
-  components: {
-    HelloWorld
+    // Map getters from auth module (Vuex)
+    ...mapGetters("auth", ["authenticated"])
   },
+  components: {},
 
   data: () => ({
     //
-  })
+  }),
+
+  watch: {
+    /**
+     * Listen changes for computed property "authenticated" mapped from auth getters (Vuex)
+     * if user is not authenticated then redirect to login view
+     * @param newValue
+     */
+    authenticated(newValue) {
+      if (!newValue) {
+        console.log("[App]: redirecting to login");
+        this.$router.push({ name: "login" });
+      }
+    }
+  },
+  mounted() {
+    // Init things here
+    console.log("[App]: mounted");
+  }
 };
 </script>
