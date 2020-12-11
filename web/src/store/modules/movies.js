@@ -48,6 +48,9 @@ export default {
     selectMovie(state, payload) {
       state.movie = { ...defaultState.movie, ...payload };
     },
+    selectMovieById(state, payload) {
+      state.movie = { ...state.movies.find(item => item.id == payload) };
+    },
     setPagination(state, payload) {
       state.pagination = { ...payload };
     },

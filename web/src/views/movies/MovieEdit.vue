@@ -18,15 +18,17 @@
 
 <script>
 import MovieForm from "@/views/movies/components/MovieForm";
-import {mapActions} from "vuex";
+import {mapActions, mapMutations} from "vuex";
 export default {
 name: "MovieEdit",
   components: {MovieForm},
   methods: {
+    ...mapMutations('movies', ["selectMovieById"]),
     // Map actions from movies module (Vuex)
     ...mapActions("movies", ["find"]),
   },
   mounted() {
+    this.selectMovieById(this.$route.params.id);
     this.find(this.$route.params.id)
   }
 }
