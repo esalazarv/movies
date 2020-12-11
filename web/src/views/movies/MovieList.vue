@@ -15,7 +15,7 @@
               hide-details
               @keyup="setParams(params)"
               @click:clear="clear"
-              v-debounce="search"
+              v-debounce="onQueryChange"
               clearable
             ></v-text-field>
           </div>
@@ -64,10 +64,12 @@
           </template>
         </v-data-table>
 
+        <v-progress-linear v-if="isLoading" indeterminate></v-progress-linear>
         <v-pagination
             v-model="pagination.current_page"
             :length="pagination.last_page"
             @input="search"
+            :disabled="isLoading"
         ></v-pagination>
       </v-card>
     </div>
@@ -117,7 +119,7 @@
 import { mapActions, mapGetters, mapState, mapMutations } from "vuex";
 
 export default {
-  name: "Movies",
+  name: "MovieList",
   data() {
     return {
       movie: {},
@@ -166,18 +168,22 @@ export default {
     ...mapGetters("movies", ["movies", "filters"])
   },
   methods: {
-    // Map actions from auth module (Vuex)
+    // Map actions from movies module (Vuex)
     ...mapMutations("movies", ['setParams']),
-    // Map actions from auth module (Vuex)
+    // Map actions from movies module (Vuex)
     ...mapActions("movies", ["fetch", "destroy", "toggleStatus"]),
 
-    search() {
+    onQueryChange() {
+      this.fetch({ ...this.filters, page: 1 });
+    },
+
+    search(options = {}) {
       console.log("[Movies] searching");
-      this.fetch(this.filters);
+      this.fetch({ ...this.filters, ...options });
     },
 
     clear() {
-      this.updateQuery(this.params).finally(() => this.search());
+      this.updateQuery(this.params).finally(() => this.fetch());
     },
 
     async updateQuery(params) {

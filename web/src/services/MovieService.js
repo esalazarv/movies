@@ -6,7 +6,13 @@ export default class MovieService extends Service {
     return this.client.get("movies", query);
   }
 
+  create(data, params = {}) {
+    console.log(`[MovieService]: creating movie`);
+    return this.client.post(`movies`, data, { params });
+  }
+
   update(id, data, params = {}) {
+    console.log(`[MovieService]: updating movie`);
     return this.client.patch(`movies/${id}`, data, { params });
   }
 

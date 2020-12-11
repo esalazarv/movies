@@ -1,7 +1,8 @@
 FROM node:lts-alpine as base
+RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
 WORKDIR /var/www/html
 COPY ./package*.json ./
-RUN npm install
+RUN pip3 install --no-cache --upgrade pip setuptools && npm install
 COPY . ./
 
 

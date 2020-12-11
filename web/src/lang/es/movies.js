@@ -36,6 +36,18 @@ export default {
         message: "La película {name} ha sido removido exitosamente",
         dismiss: "cancelar",
         accept: "aceptar"
+      },
+      successCreate: {
+        title: "Registro completo",
+        message: "La película {name} ha registrado exitosamente",
+        dismiss: "cancelar",
+        accept: "aceptar"
+      },
+      errorCreate: {
+        title: "Error",
+        message: "La película {name} no se puedo registrar correctamente",
+        dismiss: "cancelar",
+        accept: "aceptar"
       }
     }
   }

@@ -7,14 +7,14 @@ const defaultState = {
   movie: {
     id: null,
     name: "",
-    active: false,
+    active: true,
     image: {
       url: ""
     },
-    duration: "00:00:00",
-    publish_date: "0000-00-00",
-    created_at: "0000-00-00T00:00:00.000000Z",
-    updated_at: "0000-00-00T00:00:00.000000Z"
+    duration: null,
+    publish_date: null,
+    created_at: null,
+    updated_at: null
   },
   params: {
     query: ""
@@ -45,8 +45,14 @@ export default {
     setMovies(state, payload) {
       state.movies = [...payload];
     },
+    selectMovie(state, payload) {
+      state.movie = { ...defaultState.movie, ...payload };
+    },
     setPagination(state, payload) {
       state.pagination = { ...payload };
+    },
+    prependMovie(state, payload) {
+      state.movies = [payload, ...state.movies];
     },
     removeMovie(state, payload) {
       state.movies = [...state.movies.filter(item => item.id !== payload.id)];
@@ -73,7 +79,7 @@ export default {
      * @param filters
      * @returns {Promise<unknown>}
      */
-    fetch({ commit }, filters) {
+    fetch({ commit }, filters = {}) {
       const movieService = new MovieService();
       commit("setLoading", true);
       console.log("[Movies redux] fetching");
@@ -85,6 +91,21 @@ export default {
           console.log("[Movies redux] movies fetched");
         })
         .finally(() => commit("setLoading", false));
+    },
+
+    create({ commit }, data) {
+      const movieService = new MovieService();
+      commit("setLoading", true);
+      console.log("[Movies redux] creating");
+      return movieService
+          .create(data)
+          .then(response => {
+            console.log("[Movies redux] movies created");
+            commit("prependMovie", response.data);
+            commit("selectMovie", response.data);
+            return response.data;
+          })
+          .finally(() => commit("setLoading", false));
     },
 
     /**
