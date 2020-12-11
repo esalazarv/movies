@@ -1,7 +1,9 @@
+import config from "@/config";
+
 export default {
   namespaced: true,
   state: {
-    name: "App",
+    name: config.app.name,
     layout: "guest-layout"
   },
   mutations: {

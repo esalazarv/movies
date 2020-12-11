@@ -25,6 +25,9 @@ Route::group(['prefix' =>'v1'], function () {
     Route::post('/login', [AuthController::class, 'login'])->name('login');
 
     Route::group(['middleware' => 'auth:sanctum'], function () {
+        // Get Auth user data
+        Route::get('me', [AuthController::class, 'me'])->name('login');
+
         // Movie CRUD routes
         Route::apiResource('movies', MovieController::class);
 

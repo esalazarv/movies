@@ -71,12 +71,23 @@ export default {
     }
   }),
   computed: {
-    isLoading: () => false
+    // Map state from auth module (Vuex)
+    ...mapState("auth", {
+      isLoading: state => state.isLoading
+    })
   },
   methods: {
+    // Map actions from auth module (Vuex)
+    ...mapActions("auth", ["authenticate"]),
+
     // Login handler
     async login() {
-      // TODO: login logic
+      if (await this.$refs.form.validate()) {
+        console.log("[Login]: valid credentials");
+        this.authenticate(this.credentials)
+          .then(() => this.$router.push({ name: "home" }))
+          .catch(error => console.log(error));
+      }
     }
   },
   mounted() {
