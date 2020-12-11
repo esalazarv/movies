@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 use \App\Http\Controllers\ApiController;
@@ -21,9 +22,13 @@ Route::get('/', [ApiController::class, 'redirect']);
 Route::group(['prefix' =>'v1'], function () {
     Route::get('/', [ApiController::class, 'index'])->name('api:info');
 
-    // Movie CRUD routes
-    Route::apiResource('movies', MovieController::class);
+    Route::post('/login', [AuthController::class, 'login'])->name('login');
 
-    // Schedule CRUD routes
-    Route::apiResource('schedules', ScheduleController::class);
+    Route::group(['middleware' => 'auth:sanctum'], function () {
+        // Movie CRUD routes
+        Route::apiResource('movies', MovieController::class);
+
+        // Schedule CRUD routes
+        Route::apiResource('schedules', ScheduleController::class);
+    });
 });
