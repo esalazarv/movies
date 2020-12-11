@@ -28,6 +28,8 @@ services:
     restart: always
     networks:
       - internal
+    ports:
+    - "5432:5432"
     volumes:
       - database:/var/lib/postgresql
     environment:
@@ -66,11 +68,14 @@ services:
     networks:
       - internal
     ports:
-      - "${DOCKER_APP_PORT:-3000}:80"
+      - "${DOCKER_APP_PORT:-3000}:${DOCKER_APP_PORT:-3000}"
     volumes:
       - ./nginx/templates/proxy.conf.template:/etc/nginx/templates/default.conf.template
       - ./api:/var/www/html
     environment:
+      # The main port
+      NGINX_PROXY_PORT: ${DOCKER_APP_PORT:-3000}
+
       # The API hostname must be the same as the service name for the api container in this config file
       # else reverse proxy will fail
       NGINX_API_HOST: http://api
