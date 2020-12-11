@@ -1,30 +1,24 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+
+import Authenticated from "@/router/guards/Authenticated";
+import auth from "./auth";
+import home from "./home";
 
 Vue.use(VueRouter);
 
-const routes = [
-  {
-    path: "/",
-    name: "Home",
-    component: Home
-  },
-  {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
-  }
-];
+const routes = [...auth, ...home];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes
 });
+
+/**
+ * Global Before Middleware
+ */
+const BeforeMiddleware = [Authenticated];
+BeforeMiddleware.forEach(middleware => router.beforeEach(middleware));
 
 export default router;

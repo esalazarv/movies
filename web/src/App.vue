@@ -1,32 +1,45 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
-  </div>
+  <v-app id="app">
+    <component :is="layout"></component>
+  </v-app>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import { mapGetters, mapState } from "vuex";
 
-#nav {
-  padding: 30px;
+export default {
+  name: "App",
+  computed: {
+    // Map state from application module (Vuex)
+    ...mapState("application", {
+      layout: state => state.layout
+    }),
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+    // Map getters from auth module (Vuex)
+    ...mapGetters("auth", ["authenticated"])
+  },
+  components: {},
 
-    &.router-link-exact-active {
-      color: #42b983;
+  data: () => ({
+    //
+  }),
+
+  watch: {
+    /**
+     * Listen changes for computed property "authenticated" mapped from auth getters (Vuex)
+     * if user is not authenticated then redirect to login view
+     * @param newValue
+     */
+    authenticated(newValue) {
+      if (!newValue) {
+        console.log("[App]: redirecting to login");
+        this.$router.push({ name: "login" });
+      }
     }
+  },
+  mounted() {
+    // Init things here
+    console.log("[App]: mounted");
   }
-}
-</style>
+};
+</script>
