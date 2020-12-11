@@ -36,6 +36,18 @@ export default {
         message: "Movie {name} has been removed",
         dismiss: "dismiss",
         accept: "ok"
+      },
+      successCreate: {
+        title: "Register complete",
+        message: "Movie {name} has been created successfully",
+        dismiss: "cancel",
+        accept: "accept"
+      },
+      errorCreate: {
+        title: "Error",
+        message: "Movie {name} has not been created",
+        dismiss: "cancel",
+        accept: "accept"
       }
     }
   }

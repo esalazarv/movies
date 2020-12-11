@@ -104,11 +104,11 @@
     <v-dialog v-model="errorDialogOpen" max-width="300">
       <v-card>
         <v-card-title class="headline">{{ $t('movies.labels.dialogs.errorCreate.title') }}</v-card-title>
-        <v-card-text>{{ $t('movies.labels.dialogs.errorCreate.title') }}</v-card-text>
+        <v-card-text>{{ $t('movies.labels.dialogs.errorCreate.message') }}</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn text @click="errorDialogOpen = false">
-            {{ $t('movies.labels.dialog.errorCreate.title') }}
+            {{ $t('movies.labels.dialogs.errorCreate.accept') }}
           </v-btn>
         </v-card-actions>
       </v-card>
