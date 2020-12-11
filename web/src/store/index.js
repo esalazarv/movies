@@ -4,6 +4,7 @@ import VuexPersist from "vuex-persist";
 
 import application from "./modules/application";
 import auth from "./modules/auth";
+import movies from "./modules/movies";
 
 Vue.use(Vuex);
 
@@ -12,14 +13,16 @@ const vuexPersist = new VuexPersist({
   storage: window.localStorage,
   reducer: state => ({
     application: state.application,
-    auth: state.auth
+    auth: state.auth,
+    movies: state.movies
   })
 });
 
 const store = new Vuex.Store({
   modules: {
     application,
-    auth
+    auth,
+    movies
   },
   plugins: [vuexPersist.plugin]
 });

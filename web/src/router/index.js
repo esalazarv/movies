@@ -4,10 +4,11 @@ import VueRouter from "vue-router";
 import Authenticated from "@/router/guards/Authenticated";
 import auth from "./auth";
 import home from "./home";
+import movies from "./movies";
 
 Vue.use(VueRouter);
 
-const routes = [...auth, ...home];
+const routes = [...auth, ...home, ...movies];
 
 const router = new VueRouter({
   mode: "history",

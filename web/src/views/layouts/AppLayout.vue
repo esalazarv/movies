@@ -1,6 +1,10 @@
 <template>
   <v-main class="main-bg">
-    <v-navigation-drawer v-model="drawer" :clipped="$vuetify.breakpoint.lgAndUp" app>
+    <v-navigation-drawer
+      v-model="drawer"
+      :clipped="$vuetify.breakpoint.lgAndUp"
+      app
+    >
       <v-list dense>
         <template v-for="item in items">
           <v-row v-if="item.heading" :key="item.heading" align="center">
@@ -47,7 +51,12 @@
             </v-list-item>
           </v-list-group>
           <!-- IF Item has not children -->
-          <v-list-item v-else-if="item.isVisible()" :key="item.text" link @click="item.action()">
+          <v-list-item
+            v-else-if="item.isVisible()"
+            :key="item.text"
+            link
+            @click="item.action()"
+          >
             <v-list-item-action>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-item-action>
@@ -60,7 +69,12 @@
         </template>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar :clipped-left="$vuetify.breakpoint.lgAndUp" app color="primary" dark>
+    <v-app-bar
+      :clipped-left="$vuetify.breakpoint.lgAndUp"
+      app
+      color="primary"
+      dark
+    >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title style="width: 300px;" class="ml-0 pl-4">
         <v-img
@@ -95,7 +109,10 @@
           </v-subheader>
           <v-divider></v-divider>
           <v-list-item @click="logout">
-            <v-list-item-title><v-icon>fa fa-power-off</v-icon> Cerrar sesión</v-list-item-title>
+            <v-list-item-title
+              ><v-icon>fa fa-power-off</v-icon>
+              {{ $t("app.toolbar.menu.logout") }}</v-list-item-title
+            >
           </v-list-item>
         </v-list>
       </v-menu>
@@ -105,14 +122,14 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex';
+import { mapActions, mapGetters } from "vuex";
 export default {
-  name: 'AppLayout',
+  name: "AppLayout",
   props: {
-    source: String,
+    source: String
   },
   data: () => ({
-    drawer: null,
+    drawer: null
   }),
   computed: {
     // Map getters from auth module (Vuex)
@@ -121,40 +138,44 @@ export default {
     items() {
       return [
         {
-          icon: 'fa fa-chart-bar',
-          text: 'Dashboard',
-          action: () => this.$router.push({ name: 'home' }),
-          isVisible: () => true,
+          icon: "fa fa-chart-bar",
+          text: "Dashboard",
+          action: () => this.$router.push({ name: "home" }),
+          isVisible: () => true
         },
         {
-          icon: 'fa fa-film',
-          text: 'Peliculas',
-          action: () => this.$router.push({ name: 'home' }),
-          isVisible: () => true,
+          icon: "fa fa-film",
+          text: "Peliculas",
+          action: () => this.$router.push({ name: "movies" }),
+          isVisible: () => true
         },
         {
-          icon: 'fa fa-calendar-alt',
-          text: 'Turnos',
-          action: () => this.$router.push({ name: 'home' }),
-          isVisible: () => true,
+          icon: "fa fa-calendar-alt",
+          text: "Turnos",
+          action: () => this.$router.push({ name: "home" }),
+          isVisible: () => true
         },
         {
-          icon: 'fa fa-users-cog',
-          text: 'Administradores',
-          action: () => this.$router.push({ name: 'home' }),
-          isVisible: () => true,
-        },
+          icon: "fa fa-users-cog",
+          text: "Administradores",
+          action: () => this.$router.push({ name: "home" }),
+          isVisible: () => true
+        }
       ];
-    },
+    }
   },
   methods: {
     // Map actions from auth module (Vuex)
-    ...mapActions('auth', ['logout']),
-  },
+    ...mapActions("auth", ["logout"])
+  }
 };
 </script>
 
-<style scoped>
+<style lang="scss">
+.v-icon.v-icon,
+.v-btn > .v-btn__content .v-icon {
+  font-size: 16px;
+}
 .logo {
   height: 30px;
 }

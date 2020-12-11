@@ -72,6 +72,7 @@ abstract class QueryFilters implements QueryableContract
             }
         });
         $this->includeRelations($this->get('$include'), $builder);
+        $this->sortResults( $builder);
         return $builder;
     }
 
@@ -123,6 +124,21 @@ abstract class QueryFilters implements QueryableContract
     {
         $this->includeRelations($this->get('$include'), $model);
         return $model;
+    }
+
+    public function sortResults(&$target)
+    {
+        $sort = str_replace(' ','', $this->get('$sort') ?? 'id:desc');
+        $segments = explode(',', $sort);
+        array_walk($segments, function ($segment) use (&$target) {
+            $parts = explode(':', $segment);
+            $column = $parts[0] ?? null;
+            $direction = $parts[1] ?? 'asc';
+            if ($column && $direction) {
+                $target->orderBy($column, $direction);
+            }
+        });
+        return $target;
     }
 
     public function pageSize() {

@@ -4,6 +4,7 @@ import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
 import "./directives";
+import "./plugins/vue-debounce";
 import "./plugins/vevalidate";
 import vuetify from "./plugins/vuetify";
 import i18n from "./plugins/i18n";
