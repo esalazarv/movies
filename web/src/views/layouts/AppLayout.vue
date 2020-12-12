@@ -80,22 +80,11 @@
         />
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-menu bottom left>
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn icon v-bind="attrs" v-on="on">
-            <v-icon>fa fa-globe-americas</v-icon>
-          </v-btn>
-        </template>
-
-        <v-list>
-          <v-list-item @click="logout">
-            <v-list-item-title>ES</v-list-item-title>
-          </v-list-item>
-          <v-list-item @click="logout">
-            <v-list-item-title>EN</v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu>
+      <v-btn icon @click="toggleLang" v-if="$root.$i18n.locale">
+        <v-badge overlap :content="$root.$i18n.locale">
+          <v-icon>fa fa-globe-americas</v-icon>
+        </v-badge>
+      </v-btn>
       <v-menu bottom left>
         <template v-slot:activator="{ on, attrs }">
           <v-btn icon v-bind="attrs" v-on="on">
@@ -145,12 +134,12 @@ export default {
       return [
         {
           icon: "fa fa-chart-bar",
-          text: "Dashboard",
+          text: this.$t("app.sidebar.dashboard"),
           action: () => this.navigate({ name: "home" })
         },
         {
           icon: "fa fa-film",
-          text: "Peliculas",
+          text: this.$t("app.sidebar.movies"),
           action: () => this.navigate({ name: "movies" })
         }
         /*{
@@ -174,7 +163,9 @@ export default {
         this.$router.push(options);
       }
     },
-    setLang() {}
+    toggleLang() {
+      this.$root.$i18n.locale = this.$i18n.locale === 'es' ? 'en' : 'es';
+    }
   }
 };
 </script>

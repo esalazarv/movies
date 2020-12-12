@@ -1,6 +1,6 @@
 export default {
   sidebar: {
-    dashboard: "Dashboard",
+    dashboard: "Métricas",
     movies: "Películas",
     schedule: "Turnos",
     admins: "Administradores"

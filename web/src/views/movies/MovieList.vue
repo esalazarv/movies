@@ -124,7 +124,22 @@ export default {
   data() {
     return {
       movie: {},
-      headers: [
+      confirmDialogOpen: false
+    };
+  },
+  computed: {
+    // Map state from movies module (Vuex)
+    ...mapState("movies", {
+      isLoading: state => state.isLoading,
+      isDeleting: state => state.isDeleting,
+      params: state => state.params,
+      pagination: state => state.pagination
+    }),
+
+    // Map getters from movies module (Vuex)
+    ...mapGetters("movies", ["movies", "filters"]),
+    headers() {
+      return [
         {
           text: this.$t("movies.attributes.image"),
           value: "avatar",
@@ -152,21 +167,8 @@ export default {
           sortable: false
         },
         { text: "", value: "actions", align: "end", sortable: false }
-      ],
-      confirmDialogOpen: false
-    };
-  },
-  computed: {
-    // Map state from movies module (Vuex)
-    ...mapState("movies", {
-      isLoading: state => state.isLoading,
-      isDeleting: state => state.isDeleting,
-      params: state => state.params,
-      pagination: state => state.pagination
-    }),
-
-    // Map getters from movies module (Vuex)
-    ...mapGetters("movies", ["movies", "filters"])
+      ];
+    }
   },
   methods: {
     // Map actions from movies module (Vuex)
