@@ -55,7 +55,10 @@
             <v-btn icon :to="{ name: 'movies:edit', params: { id: item.id } }">
               <v-icon>fa fa-edit</v-icon>
             </v-btn>
-            <v-btn icon :to="{ name: 'movies:schedules', params: { id: item.id } }">
+            <v-btn
+              icon
+              :to="{ name: 'movies:schedules', params: { id: item.id } }"
+            >
               <v-icon>fa fa-calendar-alt</v-icon>
             </v-btn>
             <v-btn icon @click="confirmDelete(item)">
@@ -66,10 +69,10 @@
 
         <v-progress-linear v-if="isLoading" indeterminate></v-progress-linear>
         <v-pagination
-            v-model="pagination.current_page"
-            :length="pagination.last_page"
-            @input="search"
-            :disabled="isLoading"
+          v-model="pagination.current_page"
+          :length="pagination.last_page"
+          @input="search"
+          :disabled="isLoading"
         ></v-pagination>
       </v-card>
     </div>
@@ -169,7 +172,7 @@ export default {
   },
   methods: {
     // Map actions from movies module (Vuex)
-    ...mapMutations("movies", ['setParams']),
+    ...mapMutations("movies", ["setParams"]),
     // Map actions from movies module (Vuex)
     ...mapActions("movies", ["fetch", "destroy", "toggleStatus"]),
 

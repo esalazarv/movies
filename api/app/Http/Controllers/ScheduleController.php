@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateScheduleRequest;
 use App\Http\Resources\ScheduleResource;
 use App\Repositories\MovieRepository;
 use App\Repositories\ScheduleRepository;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
@@ -33,11 +34,13 @@ class ScheduleController extends Controller
      * Display a listing of the resource.
      *
      * @param ScheduleFilters $filters
+     * @param Request $request
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index(ScheduleFilters $filters)
+    public function index(ScheduleFilters $filters, Request $request)
     {
-        return ScheduleResource::collection($this->scheduleRepository->search($filters));
+        $schedules = $request->has('all') ? $this->scheduleRepository->search($filters): $this->scheduleRepository->all($filters);
+        return ScheduleResource::collection($schedules);
     }
 
     /**

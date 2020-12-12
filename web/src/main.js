@@ -7,7 +7,7 @@ import "./directives";
 import "./plugins/vue-debounce";
 import "./plugins/vevalidate";
 import vuetify from "./plugins/vuetify";
-import moment from './plugins/vue-moment';
+import moment from "./plugins/vue-moment";
 import i18n from "./plugins/i18n";
 
 Vue.config.productionTip = false;

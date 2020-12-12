@@ -13,5 +13,10 @@ export default [
     path: "/movies/:id",
     name: "movies:edit",
     component: () => import("../views/movies/MovieEdit.vue")
+  },
+  {
+    path: "/movies/:id/schedules",
+    name: "movies:schedules",
+    component: () => import("../views/movies/MovieSchedules.vue")
   }
 ];

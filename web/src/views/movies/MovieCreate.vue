@@ -15,13 +15,13 @@
 
 <script>
 import MovieForm from "@/views/movies/components/MovieForm";
-import {mapMutations} from "vuex";
+import { mapMutations } from "vuex";
 
 export default {
-name: "MovieCreate",
-  components: {MovieForm},
+  name: "MovieCreate",
+  components: { MovieForm },
   methods: {
-    ...mapMutations('movies', ["selectMovie"]),
+    ...mapMutations("movies", ["selectMovie"]),
     redirect() {
       this.$router.push({ name: "movies" });
     }
@@ -29,9 +29,7 @@ name: "MovieCreate",
   created() {
     this.selectMovie({});
   }
-}
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

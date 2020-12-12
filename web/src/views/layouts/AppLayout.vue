@@ -89,17 +89,13 @@
       <v-menu bottom left>
         <template v-slot:activator="{ on, attrs }">
           <v-btn icon v-bind="attrs" v-on="on">
-            <v-avatar size="32px" item>
-              <v-img :src="user.avatar.url" alt="Vuetify"></v-img>
-            </v-avatar>
+            <v-icon>fa fa-user-circle</v-icon>
           </v-btn>
         </template>
 
         <v-list>
           <v-subheader>
-            <v-avatar size="25px" item class="mr-2">
-              <v-img :src="user.avatar.url" alt="Vuetify"></v-img>
-            </v-avatar>
+            <v-icon>fa fa-user-circle</v-icon>
             <v-list-item three-line>
               <v-list-item-content class="pb-16 pt-16">
                 <v-list-item-title>{{ user.name }}</v-list-item-title>
@@ -140,33 +136,38 @@ export default {
         {
           icon: "fa fa-chart-bar",
           text: "Dashboard",
-          action: () => this.$router.push({ name: "home" }),
+          action: () => this.navigate({ name: "home" }),
           isVisible: () => true
         },
         {
           icon: "fa fa-film",
           text: "Peliculas",
-          action: () => this.$router.push({ name: "movies" }),
+          action: () => this.navigate({ name: "movies" }),
           isVisible: () => true
         },
         {
           icon: "fa fa-calendar-alt",
           text: "Turnos",
-          action: () => this.$router.push({ name: "home" }),
-          isVisible: () => true
-        },
-        {
-          icon: "fa fa-users-cog",
-          text: "Administradores",
-          action: () => this.$router.push({ name: "home" }),
+          action: () => this.navigate({ name: "home" }),
           isVisible: () => true
         }
+        /*{
+          icon: "fa fa-users-cog",
+          text: "Administradores",
+          action: () => this.navigate({ name: "home" }),
+          isVisible: () => true
+        }*/
       ];
     }
   },
   methods: {
     // Map actions from auth module (Vuex)
-    ...mapActions("auth", ["logout"])
+    ...mapActions("auth", ["logout"]),
+    navigate(options) {
+      if (this.$router.currentRoute.name !== options.name) {
+        this.$router.push(options);
+      }
+    }
   }
 };
 </script>

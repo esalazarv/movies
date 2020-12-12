@@ -57,7 +57,8 @@ export default {
       },
       errorUpdate: {
         title: "Error",
-        message: "No se puedo actualizar correctamente los datos de la película",
+        message:
+          "No se puedo actualizar correctamente los datos de la película",
         dismiss: "cancelar",
         accept: "aceptar"
       }

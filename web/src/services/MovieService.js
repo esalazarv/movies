@@ -6,7 +6,7 @@ export default class MovieService extends Service {
     return this.client.get("movies", query);
   }
 
-  find(id, params ={}) {
+  find(id, params = {}) {
     console.log(`[MovieService]: fetching movie`);
     return this.client.get(`movies/${id}`, params);
   }

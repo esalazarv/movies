@@ -40,7 +40,7 @@ export default {
       state.isDeleting = payload;
     },
     setParams(state, payload) {
-      state.params = { ...state.params, ...payload};
+      state.params = { ...state.params, ...payload };
     },
     setMovies(state, payload) {
       state.movies = [...payload];
@@ -101,12 +101,12 @@ export default {
       commit("setLoading", true);
       console.log("[Movies redux] find");
       return movieService
-          .find(id)
-          .then(response => {
-            commit("selectMovie", response.data);
-            console.log("[Movies redux] movie found");
-          })
-          .finally(() => commit("setLoading", false));
+        .find(id)
+        .then(response => {
+          commit("selectMovie", response.data);
+          console.log("[Movies redux] movie found");
+        })
+        .finally(() => commit("setLoading", false));
     },
 
     create({ commit }, data) {
@@ -114,14 +114,14 @@ export default {
       commit("setLoading", true);
       console.log("[Movies redux] creating");
       return movieService
-          .create(data)
-          .then(response => {
-            console.log("[Movies redux] movies created");
-            commit("prependMovie", response.data);
-            commit("selectMovie", response.data);
-            return response.data;
-          })
-          .finally(() => commit("setLoading", false));
+        .create(data)
+        .then(response => {
+          console.log("[Movies redux] movies created");
+          commit("prependMovie", response.data);
+          commit("selectMovie", response.data);
+          return response.data;
+        })
+        .finally(() => commit("setLoading", false));
     },
 
     /**
@@ -136,12 +136,12 @@ export default {
       console.log("[Movies redux] updating");
       commit("setLoading", true);
       return movieService
-          .update(id, data)
-          .then(response => {
-            commit("replaceMovie", response.data);
-            console.log("[Movies redux] movies updated");
-          })
-          .finally(() => commit("setLoading", false));
+        .update(id, data)
+        .then(response => {
+          commit("replaceMovie", response.data);
+          console.log("[Movies redux] movies updated");
+        })
+        .finally(() => commit("setLoading", false));
     },
 
     /**
