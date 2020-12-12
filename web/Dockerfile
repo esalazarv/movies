@@ -9,7 +9,7 @@ COPY . ./
 # For development stage
 FROM base as development
 ENV APP_PORT=80
-#RUN npm install -g @vue/cli
+RUN npm install -g @vue/cli
 EXPOSE $APP_PORT
 ENTRYPOINT npm run serve -- --port $APP_PORT --public
 
