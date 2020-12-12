@@ -20,6 +20,7 @@ Configure the environment variables for build the containers
 First at root directory copy de `.env.example` file into a `.env` file
 
 ````bash
+cd movies
 cp .env.example .env
 ````
 
