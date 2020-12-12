@@ -28,13 +28,16 @@ export default {
       state.access = payload;
     },
     setUser(state, payload) {
-      state.user = payload;
+      state.user = { ...state.user, ...payload };
     }
   },
 
   getters: {
     authenticated: state => {
       return !!state.access.access_token;
+    },
+    user: state => {
+      return state.user;
     }
   },
 
@@ -42,7 +45,7 @@ export default {
     authenticate({ state, commit, rootState, dispatch }, credentials) {
       const sanctumService = new SanctumService();
       commit("setLoading", true);
-      sanctumService
+      return sanctumService
         .getCSRFCookie()
         .then(async response => {
           const authService = new AuthService();
