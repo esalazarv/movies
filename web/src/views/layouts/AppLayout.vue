@@ -145,13 +145,13 @@ export default {
           action: () => this.navigate({ name: "movies" }),
           isVisible: () => true
         },
-        {
+        /*{
           icon: "fa fa-calendar-alt",
           text: "Turnos",
           action: () => this.navigate({ name: "home" }),
           isVisible: () => true
         }
-        /*{
+        {
           icon: "fa fa-users-cog",
           text: "Administradores",
           action: () => this.navigate({ name: "home" }),
