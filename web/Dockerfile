@@ -16,7 +16,8 @@ ENTRYPOINT npm run serve -- --port $APP_PORT --public
 # For build stage
 FROM base as build
 RUN npm install -g @vue/cli
-ENTRYPOINT npm run build -- --no-fix-warnings
+RUN npm run build -- --no-fix-warnings
+ENTRYPOINT ["tail", "-f", "/dev/null"]
 
 
 # For production stage
