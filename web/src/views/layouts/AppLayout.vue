@@ -38,7 +38,6 @@
               :key="i"
               link
               @click="child.action()"
-              v-if="child.isVisible && child.isVisible()"
             >
               <v-list-item-action v-if="child.icon">
                 <v-icon>{{ child.icon }}</v-icon>
@@ -51,12 +50,7 @@
             </v-list-item>
           </v-list-group>
           <!-- IF Item has not children -->
-          <v-list-item
-            v-else-if="item.isVisible()"
-            :key="item.text"
-            link
-            @click="item.action()"
-          >
+          <v-list-item v-else :key="item.text" link @click="item.action()">
             <v-list-item-action>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-item-action>
@@ -86,6 +80,22 @@
         />
       </v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-menu bottom left>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn icon v-bind="attrs" v-on="on">
+            <v-icon>fa fa-globe-americas</v-icon>
+          </v-btn>
+        </template>
+
+        <v-list>
+          <v-list-item @click="logout">
+            <v-list-item-title>ES</v-list-item-title>
+          </v-list-item>
+          <v-list-item @click="logout">
+            <v-list-item-title>EN</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
       <v-menu bottom left>
         <template v-slot:activator="{ on, attrs }">
           <v-btn icon v-bind="attrs" v-on="on">
@@ -136,26 +146,22 @@ export default {
         {
           icon: "fa fa-chart-bar",
           text: "Dashboard",
-          action: () => this.navigate({ name: "home" }),
-          isVisible: () => true
+          action: () => this.navigate({ name: "home" })
         },
         {
           icon: "fa fa-film",
           text: "Peliculas",
-          action: () => this.navigate({ name: "movies" }),
-          isVisible: () => true
-        },
+          action: () => this.navigate({ name: "movies" })
+        }
         /*{
           icon: "fa fa-calendar-alt",
           text: "Turnos",
           action: () => this.navigate({ name: "home" }),
-          isVisible: () => true
         }
         {
           icon: "fa fa-users-cog",
           text: "Administradores",
           action: () => this.navigate({ name: "home" }),
-          isVisible: () => true
         }*/
       ];
     }
@@ -167,7 +173,8 @@ export default {
       if (this.$router.currentRoute.name !== options.name) {
         this.$router.push(options);
       }
-    }
+    },
+    setLang() {}
   }
 };
 </script>

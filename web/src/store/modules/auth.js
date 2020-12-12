@@ -42,12 +42,12 @@ export default {
   },
 
   actions: {
-    authenticate({ state, commit, rootState, dispatch }, credentials) {
+    authenticate({ commit, dispatch }, credentials) {
       const sanctumService = new SanctumService();
       commit("setLoading", true);
       return sanctumService
         .getCSRFCookie()
-        .then(async response => {
+        .then(async () => {
           const authService = new AuthService();
           return await authService.authenticate(credentials).then(response => {
             commit("setAccess", response);
@@ -57,14 +57,14 @@ export default {
         .then(() => dispatch("getAuthUser"))
         .finally(() => commit("setLoading", false));
     },
-    getAuthUser({ state, commit, rootState }) {
+    getAuthUser({ commit }) {
       const service = new AuthService();
       return service.me().then(response => {
         commit("setUser", response.data);
         return response;
       });
     },
-    logout({ state, commit, rootState }) {
+    logout({ commit }) {
       commit("setAccess", defaultState.access);
       commit("setUser", defaultState.user);
     }

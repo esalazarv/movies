@@ -167,7 +167,7 @@ export default {
      * @param movie
      * @returns {Promise<unknown>}
      */
-    destroy({ getters, commit }, movie) {
+    destroy({ commit }, movie) {
       const movieService = new MovieService();
       commit("setDeleting", true);
       console.log("[Movies redux] deleting movie");

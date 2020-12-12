@@ -1,4 +1,3 @@
-import { AxiosResponse } from "axios";
 import AxiosBuilder from "./AxiosBuilder";
 
 class HttpClient {

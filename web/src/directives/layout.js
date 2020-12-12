@@ -1,4 +1,4 @@
-const layout = (el, binding, vnode, oldVnode) => {
+const layout = (el, binding, vnode) => {
   if (
     vnode.context &&
     vnode.context.$store.state.application.layout !== binding.value

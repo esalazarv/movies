@@ -7,7 +7,7 @@
         </v-col>
       </v-row>
       <v-card>
-        <ValidationObserver ref="form" v-slot="{ validate, reset }">
+        <ValidationObserver ref="form" v-slot="{}">
           <v-card-text>
             <div>
               <h1 align="center">{{ $t("login.title") }}</h1>

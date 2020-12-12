@@ -1,5 +1,5 @@
 <template>
-  <ValidationObserver ref="form" v-slot="{ validate, reset }">
+  <ValidationObserver ref="form" v-slot="{}">
     <v-container>
       <v-row>
         <v-col cols="12" md="6">
