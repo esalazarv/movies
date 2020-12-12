@@ -46,6 +46,7 @@ services:
       - internal
     volumes:
       - ./web:/var/www/html
+      - ./nginx/templates/web.conf.template:/etc/nginx/templates/web.conf.template
       - /var/www/html/node_modules
     restart: always
 
