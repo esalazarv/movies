@@ -39,6 +39,9 @@
               <!--img :src="item.picture.url" :alt="item.name" /-->
             </v-avatar>
           </template>
+          <template v-slot:item.publish_date="{ item }">
+            {{ item.publish_date | moment('YYYY-MM-DD') }}
+          </template>
           <template v-slot:item.active="{ item }">
             <v-switch
               v-model="item.active"

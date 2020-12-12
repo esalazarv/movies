@@ -3,7 +3,7 @@
     <div class="pa-4">
       <v-card>
         <v-toolbar flat>
-          <v-toolbar-title>{{ $t("movies.create.title") }}</v-toolbar-title>
+          <v-toolbar-title>{{ $t("movies.edit.title") }}</v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
         </v-toolbar>

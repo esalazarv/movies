@@ -180,7 +180,7 @@ export default {
           ? `${this.movie.duration}:00`
           : this.movie.duration;
         if (this.movie.id) {
-          this.update(this.movie.id, { ...this.movie })
+          this.update({ ...this.movie })
             .then(() => (this.successDialogOpen = true))
             .catch(() => (this.errorDialogOpen = true));
         } else {

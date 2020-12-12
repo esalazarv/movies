@@ -64,6 +64,11 @@ docker-compose exec php cp .env.example .env
 
 Configure env vars if you change database credential in container build step.
 
+Install dependencies
+````bash
+docker-compose exec php composer install
+````
+
 Generate app key
 ````bash
 docker-compose exec php php artisan key:generate
@@ -99,4 +104,8 @@ http://localhost:3000
 ##### Api
 http://localhost:3000/api
  
+
+### Live demo
+
+http://157.230.233.255
 

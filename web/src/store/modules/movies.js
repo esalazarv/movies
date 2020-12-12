@@ -127,16 +127,15 @@ export default {
     /**
      * Update a movie
      * @param commit
-     * @param id
      * @param data
      * @returns {*}
      */
-    update({ commit }, id, data) {
+    update({ commit }, data) {
       const movieService = new MovieService();
       console.log("[Movies redux] updating");
       commit("setLoading", true);
       return movieService
-        .update(id, data)
+        .update(data.id, data)
         .then(response => {
           commit("replaceMovie", response.data);
           console.log("[Movies redux] movies updated");
