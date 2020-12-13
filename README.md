@@ -17,14 +17,14 @@ git clone https://github.com/esalazarv/movies.git
 
 Configure the environment variables for build the containers
 
-First at root directory copy de `.env.example` file into a `.env` file
+First at root directory copy the `.env.example` file into a `.env` file
 
 ````bash
 cd movies
 cp .env.example .env
 ````
 
-Then configure de ENV vars as you need or keep the same if you are in development mode.
+Then configure the ENV vars as you need or keep the same if you are in development mode.
 ````dotenv
 # The port to be exposed to host
 DOCKER_APP_PORT=3000
