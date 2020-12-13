@@ -93,6 +93,8 @@ If you keep the same env vars this project will listen the next services:
 
 Listen on port 5432
 
+![alt diagram](https://github.com/esalazarv/movies/blob/master/movies_database.png?raw=true)
+
 ##### Front
 
 http://localhost:3000
